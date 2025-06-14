@@ -1,6 +1,6 @@
 const { default: axios } = require('axios');
 
-const api = 'https://swapi.dev/api';
+const api = 'https://swapi.info/api';
 const cache = {}; // cache not frozen for this file, but outputs to other files will be frozen
 
 module.exports = {
@@ -56,11 +56,9 @@ async function getResults(rootApi, cacheKey) {
       item.id = parseInt(id); // make things easier for the front-end
       cache[cacheKey][id] = item;
     });
-    if (!skipNext && next) {
-      return getPage(next, false);
-    } else {
-      return data;
-    }
+
+    return data;
+
   }
 
   if (Object.keys(cache[cacheKey]).length === 0) {
