@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
-router.use('/starWars', require('./starWars'));
+
+router.use('/people', require('./person.routes'));
+router.use('/planets', require('./planet.routes'));
 router.get('/*', render404);
 
 module.exports = router;

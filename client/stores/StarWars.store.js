@@ -15,9 +15,19 @@ const StarWarsStore = model('StarWarsStore', {
 })
   .actions(self => ({
     async afterCreate() {
-      const people = await self.fetchPeople();
-      const planets = await self.fetchPlanets(true);
-      // map up person models to residents
+      self.loadData();
+    },
+
+    async loadData() {
+      const [people, planets] = await Promise.all([
+        self.fetchPeople(),
+        self.fetchPlanets(true),
+      ]);
+      self.linkPeopleToPlanets(planets, people);
+    },
+
+    linkPeopleToPlanets(planets, people) {
+
       planets.forEach(planet => {
         planet.residents = (planet.residents || []).map(residentUrl => {
           const person = people.find(person => person.url === residentUrl);
@@ -72,7 +82,7 @@ const StarWarsStore = model('StarWarsStore', {
       searchTerm = searchTerm.trim();
 
       if (!searchTerm) return self.planets;
-      
+
       return self.planets.filter(planet => (
         planet.name.toLowerCase().includes(searchTerm.toLowerCase())
       ));
