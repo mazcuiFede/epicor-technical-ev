@@ -32,7 +32,7 @@ const People = () => {
           <Link
             className="listItem"
             key={person.id}
-            to={`/person/${person.id}`}
+            to={`/people/${person.id}`}
           >
             {person.name}
           </Link>
