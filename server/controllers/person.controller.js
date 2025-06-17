@@ -1,4 +1,4 @@
-const personService = require('../services/person.service');
+import * as personService from '../services/person.service.js';
 
 async function getPeople(req, res) {
   const { sortBy } = req.query;
@@ -12,6 +12,6 @@ async function getPeople(req, res) {
   }
 }
 
-module.exports = {
+export {
   getPeople,
 };

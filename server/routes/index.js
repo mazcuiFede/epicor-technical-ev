@@ -1,12 +1,14 @@
-const router = require('express').Router();
+import express from 'express';
+import personRoutes from './person.routes.js';
+import planetRoutes from './planet.routes.js';
 
-
-router.use('/people', require('./person.routes'));
-router.use('/planets', require('./planet.routes'));
+const router = express.Router();
+router.use('/people', personRoutes);
+router.use('/planets', planetRoutes);
 router.get('/*', render404);
-
-module.exports = router;
 
 function render404(req, res) {
   res.status(404).json({ error: 'not found' });
 }
+
+export default router;

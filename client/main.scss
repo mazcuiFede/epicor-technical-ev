@@ -40,7 +40,9 @@
   cursor: none; // custom cursor
 }
 
-html, body, #root {
+html,
+body,
+#root {
   background-color: colors.$background;
   color: colors.$text;
 
@@ -51,11 +53,11 @@ html, body, #root {
 }
 
 #root {
-  @include scrollbars();
 
   align-items: center;
   display: flex;
   flex-direction: column;
+  @include scrollbars();
 }
 
 a {

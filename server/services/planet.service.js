@@ -1,5 +1,5 @@
-const { sorter } = require('../utils');
-const { default: axios } = require('axios');
+import { sorter } from '../utils.js';
+import axios from 'axios';
 
 const api = 'https://swapi.info/api';
 const cache = {}; // cache not frozen for this file, but outputs to other files will be frozen
@@ -85,7 +85,7 @@ async function getResults(rootApi, cacheKey) {
 }
 
 
-module.exports = {
+export {
     getPlanets,
     preloadCache
 };

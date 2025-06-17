@@ -1,14 +1,12 @@
-const personService = require('./person.service');
-const planetService = require('./planet.service');
+import { preloadCache as personPreloadCache } from './person.service.js';
+import { preloadCache as planetPreloadCache } from './planet.service.js';
 
 async function preloadAllCaches() {
     console.log('Loading people cache...');
-    await personService.preloadCache();
+    await personPreloadCache();
 
     console.log('Loading planets cache...');
-    await planetService.preloadCache();
+    await planetPreloadCache();
 }
 
-module.exports = {
-    preloadAllCaches,
-}
+export default preloadAllCaches

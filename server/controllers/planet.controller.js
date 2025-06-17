@@ -1,4 +1,4 @@
-const planetService = require('../services/planet.service');
+import * as planetService from '../services/planet.service.js';
 
 async function getPlanets(req, res) {
   const {
@@ -14,6 +14,6 @@ async function getPlanets(req, res) {
   }
 }
 
-module.exports = {
+export {
   getPlanets,
 };

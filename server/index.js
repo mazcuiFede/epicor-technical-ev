@@ -1,12 +1,13 @@
-const express = require('express');
-const webpack = require('webpack');
-const historyApiFallback = require('connect-history-api-fallback');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+import express from 'express';
+import webpack from 'webpack';
+import historyApiFallback from 'connect-history-api-fallback';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config.js';
 
-const config = require('../webpack.config.js');
-const { preloadAllCaches } = require('./services/cache.service');
-const routes = require('./routes');
+import preloadAllCaches from './services/cache.service.js'
+
+import routes from './routes/index.js';
 
 const app = express();
 const compiler = webpack(config);

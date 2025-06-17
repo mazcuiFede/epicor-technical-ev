@@ -1,8 +1,10 @@
-const router = require('express').Router();
-const personController = require('../controllers/person.controller');
+import express from 'express';
+const router = express.Router();
+
+import * as personController from '../controllers/person.controller.js';
 
 router.get('/', personController.getPeople);
 
-module.exports = router;
+export default router;
 
 

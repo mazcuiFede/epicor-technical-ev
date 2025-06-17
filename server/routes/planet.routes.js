@@ -1,6 +1,8 @@
-const router = require('express').Router();
-const planetController = require('../controllers/planet.controller');
+import * as planetController from '../controllers/planet.controller.js';
+import express from 'express';
+
+const router = express.Router();
 
 router.get('/', planetController.getPlanets);
 
-module.exports = router;
+export default router;
