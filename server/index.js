@@ -1,25 +1,39 @@
-const express = require('express');
-const webpack = require('webpack');
-const historyApiFallback = require('connect-history-api-fallback');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+import express from 'express';
+import webpack from 'webpack';
+import historyApiFallback from 'connect-history-api-fallback';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config.js';
+
+import preloadAllCaches from './services/cache.service.js'
+
+import routes from './routes/index.js';
 
 const app = express();
-const config = require('../webpack.config.js');
 const compiler = webpack(config);
 const port = process.env.PORT || 3000;
 
-// use any express routes (fallback should be defined in each route file)
-app.use('/api', require('./api'));
+(async () => {
+  try {
+    console.log('Loading Star Wars Cache...');
+    await preloadAllCaches();
 
-// if not found in routes, use history fallback api
-// (redirect to browser so react-router can pick it up)
-app.use(historyApiFallback());
+    // Usar rutas de Express
+    app.use('/api/starwars', routes);
 
-// Tell express to use the webpack-dev-middleware and use the webpack.config.js
-app.use(webpackDevMiddleware(compiler, { publicPath: config.output.publicPath }));
-app.use(webpackHotMiddleware(compiler));
+    // if not found in routes, use history fallback api
+    // (redirect to browser so react-router can pick it up)
+    app.use(historyApiFallback());
 
-app.listen(port, function () {
-  console.log(`express listening on port ${port}\n`);
-});
+    // Tell express to use the webpack-dev-middleware and use the webpack.config.js
+    app.use(webpackDevMiddleware(compiler, { publicPath: config.output.publicPath }));
+    app.use(webpackHotMiddleware(compiler));
+    app.listen(port, function () {
+      console.log(`express listening on port ${port}\n`);
+    });
+
+  } catch (error) {
+    console.error('❌ Error loading the app:', error);
+    process.exit(1);
+  }
+})();

@@ -1,6 +1,4 @@
-module.exports = {
-  sorter,
-};
+
 
 function sorter(field, objectList, direction = 'asc') {
   const allowedFields = ['mass', 'height', 'name'];
@@ -29,3 +27,7 @@ function sorter(field, objectList, direction = 'asc') {
     return a > b ? 1 : a < b ? -1 : 0;
   });
 }
+
+export {
+  sorter,
+};
